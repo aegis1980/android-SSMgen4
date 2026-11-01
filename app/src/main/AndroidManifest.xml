@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Bluetooth Classic serial (SPP) to the OBD adapter. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"/>
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30"/>
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30"/>
+
+    <!-- Car App Library. NAVIGATION_TEMPLATES + ACCESS_SURFACE are what allow the app
+         to render its own pixels (the dials) onto the head unit, via NavigationTemplate.
+         Surface access is only granted to navigation / POI / weather categories, so the
+         CarAppService below declares category.NAVIGATION. Fine for a personal build shared
+         through Play Internal App Sharing, which skips review; a gauge app would not pass it. -->
+    <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES"/>
+    <uses-permission android:name="androidx.car.app.ACCESS_SURFACE"/>
+
+    <application
+        android:theme="@style/Theme.SsmGen4"
+        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher"
+        android:allowBackup="false"
+        android:supportsRtl="true">
+
+        <!-- Tells the Android Auto host this app offers a templated car experience. -->
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc"/>
+        <meta-data
+            android:name="androidx.car.app.minCarApiLevel"
+            android:value="1"/>
+
+        <service
+            android:name="com.ssmgen4.app.car.SsmCarAppService"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService"/>
+                <category android:name="androidx.car.app.category.NAVIGATION"/>
+            </intent-filter>
+        </service>
+
+        <!-- Phone-side screen: pick the adapter and confirm the link before driving. -->
+        <activity
+            android:name="com.ssmgen4.app.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">SSMgen4</string>
+  <string name="phone_connect_hint">Gauges appear on the car screen. Connect your phone to Android Auto, then open SSMgen4 from the car launcher.</string>
+  <string name="car_page_trip">Trip</string>
+  <string name="car_page_gauges">Gauges</string>
+  <string name="car_page_stuff">Stuff</string>
+  <string name="car_action_reset_peaks">Reset peaks</string>
+  <string name="car_action_reset_trip">Reset trip</string>
+  <!-- For SimulatedMetricSource when bench testing on the Desktop Head Unit; see SsmSession. -->
+  <string name="car_status_simulated">Simulated data — no adapter connected</string>
+</resources>

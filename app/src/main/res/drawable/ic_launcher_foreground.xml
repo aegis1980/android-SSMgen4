@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A dial like the car pages': a 270° track with its gap at the bottom, lit two thirds of the
+     way, and the needle. Kept inside the 66dp safe circle of an adaptive icon. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M79.377,42.167A28,28 0,0 1,73.799 73.799"
+        android:strokeColor="@color/icon_unlit"
+        android:strokeWidth="7.5"
+        android:strokeLineCap="round"/>
+    <path
+        android:pathData="M34.201,73.799A28,28 0,1 1,79.377 42.167"
+        android:strokeColor="@color/accent"
+        android:strokeWidth="7.5"
+        android:strokeLineCap="round"/>
+    <path
+        android:pathData="M50.375,55.69L71.22,45.97"
+        android:strokeColor="@color/icon_needle"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"/>
+    <path
+        android:pathData="M50,54a4,4 0,1 0,8 0a4,4 0,1 0,-8 0z"
+        android:fillColor="@color/icon_needle"/>
+</vector>

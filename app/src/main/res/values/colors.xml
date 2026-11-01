@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- The same palette the car pages draw with (gauge/TilePainter.kt Palette). -->
+  <color name="background">#000000</color>
+  <color name="accent">#35c5f0</color>
+  <color name="ic_launcher_background">#0b0e12</color>
+  <color name="icon_unlit">#26303a</color>
+  <color name="icon_needle">#ffffff</color>
+</resources>
