@@ -26,13 +26,13 @@ The launcher screen gets the Bluetooth permission, shows the adapter and live re
 the **parameter sweep**: every parameter, switch and trouble-code byte the RomRaider logger
 definitions list for the SSM protocol, probed and then sampled through guided steps (brake,
 clutch, lights, A/C, throttle blips…). Reports land in
-`Android/data/com.ssmgen4.app/files/sweep/`. It can also be started over adb:
+`Android/data/com.fitc.ssmgen4/files/sweep/`. It can also be started over adb:
 
-    adb shell am start -n com.ssmgen4.app/.MainActivity --ez sweep true
+    adb shell am start -n com.fitc.ssmgen4/.MainActivity --ez sweep true
 
 ## Code
 
-`app/src/main/kotlin/com/ssmgen4/app/`
+`app/src/main/kotlin/com/fitc/ssmgen4/`
 
 | Package | What |
 |---|---|
@@ -48,13 +48,12 @@ clutch, lights, A/C, throttle blips…). Reports land in
 
     gradlew :app:assembleDebug :app:testDebugUnitTest
 
-Compile SDK 37, target SDK 36, min SDK 23. Unit tests run on the JVM and include the real
+Compile SDK 37, target SDK 36, min SDK 24. Unit tests run on the JVM and include the real
 logger definitions.
 
 Android Auto only shows Car App Library apps in a real car when they come from Google Play;
-sideloading works on the Desktop Head Unit only. To get a build into the car, upload the APK
-from `app/build/outputs/apk/debug/` to Play Console **Internal App Sharing** and open the link
-on the phone. Build it with Gradle as above: Android Studio's Run adds `testOnly`, which Play
-rejects.
+sideloading works on the Desktop Head Unit only. Builds reach the car through Play's internal
+testing track: bump `versionCode`, run `gradlew :app:bundleRelease` and upload the signed bundle
+as a new internal release. `CLAUDE.md` has the full release steps and signing setup.
 
 Car-side logging uses the tag `SsmGen4Car`; the SSM link logs as `SsmSource` and `SppPort`.

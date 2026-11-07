@@ -37,7 +37,7 @@
             android:value="1"/>
 
         <service
-            android:name="com.ssmgen4.app.car.SsmCarAppService"
+            android:name="com.fitc.ssmgen4.car.SsmCarAppService"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -48,7 +48,7 @@
 
         <!-- Phone-side screen: pick the adapter and confirm the link before driving. -->
         <activity
-            android:name="com.ssmgen4.app.MainActivity"
+            android:name="com.fitc.ssmgen4.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">

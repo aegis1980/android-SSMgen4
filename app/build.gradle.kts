@@ -1,3 +1,4 @@
+import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -5,20 +6,46 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+/**
+ * The Play upload key, kept outside the repo. `local.properties` (not in git) names a properties
+ * file with storeFile, storePassword, keyAlias and keyPassword. Without it, release builds are
+ * simply left unsigned.
+ */
+val uploadKey: Properties? = run {
+    val local = Properties()
+    rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use(local::load)
+    val path = local.getProperty("signing.properties") ?: return@run null
+    val file = file(path).takeIf { it.exists() } ?: return@run null
+    Properties().apply { file.inputStream().use(::load) }
+}
+
 android {
-    namespace = "com.ssmgen4.app"
+    namespace = "com.fitc.ssmgen4"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.ssmgen4.app"
-        // androidx.car.app requires 23; Android Auto itself needs a newer phone anyway.
-        minSdk = 23
+        applicationId = "com.fitc.ssmgen4"
+        // Play's automatic protection needs 24 (androidx.car.app needs 23); Android Auto itself
+        // needs a newer phone anyway.
+        minSdk = 24
         // Raised from 34 for Google Play distribution (Internal App Sharing to the car).
         // 35+ makes the phone screen draw edge-to-edge; MainActivity pads for the bars.
         targetSdk = 36
+        // Play needs a higher versionCode for every upload to a testing track.
         versionCode = 1
         versionName = "0.1.0"
         multiDexEnabled = true
+    }
+
+    signingConfigs {
+        if (uploadKey != null) {
+            create("upload") {
+                storeFile = file(uploadKey.getProperty("storeFile"))
+                storePassword = uploadKey.getProperty("storePassword")
+                keyAlias = uploadKey.getProperty("keyAlias")
+                keyPassword = uploadKey.getProperty("keyPassword")
+            }
+        }
     }
 
     buildTypes {
@@ -27,6 +54,7 @@ android {
         }
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.findByName("upload")
         }
     }
 
